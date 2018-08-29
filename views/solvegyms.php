@@ -165,7 +165,7 @@ if ($isEmpty) {
                     if ($showSkip) {
 	                    ?>
                         <br>
-                        <a href="/solvegyms" role="button" class="btn btn-primary">Skip</a>
+                        <a href="solvegyms" role="button" class="btn btn-primary">Skip</a>
 	                    <?php
                     }
                     ?>
@@ -294,13 +294,13 @@ if ($isEmpty) {
         } else if (id == null) {
             alert("Error! Please try again later!")
         } else {
-            $.post( "/submit/gymimage/"+id+"/"+gym )
+            $.post( "submit/gymimage/"+id+"/"+gym )
                 .done(function( data ) {
                     <?php
                         if ($showSkip) {
-	                        echo 'window.location.href = "/solvegyms"';
+	                        echo 'window.location.href = "solvegyms"';
                         } else {
-                            echo 'window.location.href = "/checkgyms"';
+                            echo 'window.location.href = "checkgyms"';
                         }
                     ?>
                 });

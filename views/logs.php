@@ -76,9 +76,9 @@ foreach ($files as $file) {
 					'     <td>'.$row["device"].'</td>'.
 					'     <td>'.$row["size"].' MB</td>'.
 					'     <td>'.
-					'           <a href="/log/'.$row["filename"].'" role="button" class="btn btn-success">View</a>'.
-					'           <a href="/download/log/'.$row["filename"].'" role="button" class="btn btn-primary">Download</a>'.
-					'           <a href="/delete/log/'.$row["filename"].'" role="button" class="btn btn-danger">Delete</a>'.
+					'           <a href="log/'.$row["filename"].'" role="button" class="btn btn-success">View</a>'.
+					'           <a href="download/log/'.$row["filename"].'" role="button" class="btn btn-primary">Download</a>'.
+					'           <a href="delete/log/'.$row["filename"].'" role="button" class="btn btn-danger">Delete</a>'.
 					'	  </td>'.
 					'</tr>';
 

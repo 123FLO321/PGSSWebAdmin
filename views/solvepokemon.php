@@ -173,7 +173,7 @@ if ($isEmpty) {
 				if ($showSkip) {
 					?>
 					<br>
-					<a href="/solvepokemon" role="button" class="btn btn-primary">Skip</a>
+					<a href="solvepokemon" role="button" class="btn btn-primary">Skip</a>
 					<?php
 				}
 				?>
@@ -303,13 +303,13 @@ if ($isEmpty) {
 				alert("Error! Please try again later!")
 			} else {
                 pokemon = pokemon.replace('_', '/');
-				$.post( "/submit/pokemonimage/"+id+"/"+pokemon )
+				$.post( "submit/pokemonimage/"+id+"/"+pokemon )
 					.done(function( data ) {
 						<?php
 						if ($showSkip) {
-							echo 'window.location.href = "/solvepokemon"';
+							echo 'window.location.href = "solvepokemon"';
 						} else {
-							echo 'window.location.href = "/checkpokemon"';
+							echo 'window.location.href = "checkpokemon"';
 						}
 						?>
 					});

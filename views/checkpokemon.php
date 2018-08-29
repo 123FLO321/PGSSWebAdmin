@@ -88,9 +88,9 @@ foreach ($results as $result) {
 		foreach ($data as $row) {
 
 			if ($row["name"] === "Unknown Pokemon") {
-				$editButton = '<a href="/solvepokemon/'.$row["id"].'" role="button" class="btn btn-success">Match</a>';
+				$editButton = '<a href="solvepokemon/'.$row["id"].'" role="button" class="btn btn-success">Match</a>';
 			} else {
-				$editButton = '<a href="/solvepokemon/'.$row["id"].'" role="button" class="btn btn-primary">Edit</a>';
+				$editButton = '<a href="solvepokemon/'.$row["id"].'" role="button" class="btn btn-primary">Edit</a>';
 			}
 
 			echo
@@ -107,7 +107,7 @@ foreach ($results as $result) {
 				'	  </td>'.
 				'	  <td>'.
 				'          '.$editButton.
-				'           <a href="/delete/pokemonimage/'.$row["id"].'" role="button" class="btn btn-danger">Delete</a>'.
+				'           <a href="delete/pokemonimage/'.$row["id"].'" role="button" class="btn btn-danger">Delete</a>'.
 				'	  </td>'.
 				'</tr>';
 
