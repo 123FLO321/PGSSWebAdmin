@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8"/>
 
+    <base href="<?= HOST_URL ?>">
+
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"">
     <link rel="stylesheet" type="text/css" href="static/css/datatables.min.css"/>
 
