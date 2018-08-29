@@ -128,7 +128,7 @@ if (!$isEmpty) {
 	$id = $result['id'];
 	$fortId = $result['fort_id'];
 	$name = $result['name'];
-	$url = '../image/GymImage_'.$id.'.png';
+	$url = 'image/GymImage_'.$id.'.png';
 
     if (!$showSkip && $name !== "UNKNOWN FORT" && $name !== "NOT A FORT") {
 		$searchPrefill = $name;
@@ -217,7 +217,7 @@ if ($isEmpty) {
             var index = indexNow;
             if (term != '') {
                 $.ajax({
-                    url: '../searchgym/'+term,
+                    url: 'searchgym/'+term,
                     type: 'POST',
                     timeout: 300000,
                     dataType: 'json',

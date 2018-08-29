@@ -127,7 +127,7 @@ if (!$isEmpty) {
 	$id = $result['id'];
 	$pokemonId = $result['pokemon_id'];
 	$form = $result['form'];
-	$url = '../image/PokemonImage_'.$id.'.png';
+	$url = 'image/PokemonImage_'.$id.'.png';
 
 	if (!$showSkip && $pokemonId != 0 && $pokemonId != -2) {
 		$searchPrefill = getPokemonName($pokemonId, $form);
@@ -224,7 +224,7 @@ if ($isEmpty) {
             var index = indexNow;
             if (term != '') {
                 $.ajax({
-                    url: '../searchpokemon/'+term,
+                    url: 'searchpokemon/'+term,
                     type: 'POST',
                     timeout: 300000,
                     dataType: 'json',
