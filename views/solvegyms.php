@@ -187,123 +187,124 @@ if ($isEmpty) {
                 </div><br>
             </div>
         </div>
+    </div>
+
+    <script>
+
+        var preSelect = <?=$preSelect?>;
+
+        $(document).ready(function() {
+            $("#search").bind('input', function () {
+                searchAjax($("#search"), "gym");
+            });
+            $("#submit").click(function() {
+                submit(false);
+            });
+            $("#not").click(function() {
+                submit(true)
+            });
+            if (preSelect != 0) {
+                searchAjax($("#search"), "gym");
+            }
+        });
+
+
+        var indexNow = 0;
+
+        function searchAjax(field, type) {
+            var term = field.val();
+            indexNow = indexNow + 1;
+            var index = indexNow;
+            if (term != '') {
+                $.ajax({
+                    url: '../searchgym/'+term,
+                    type: 'POST',
+                    timeout: 300000,
+                    dataType: 'json',
+                    cache: false
+                }).done(function (data) {
+                    if (data && index == indexNow) {
+                        var par = field.parent();
+                        var sr = par.find('.search-results');
+                        sr.html('');
+                        data.forEach(function (element) {
+                            var classType;
+                            if (preSelect != 0 && preSelect == element.id) {
+                                classType = "left-column-selected";
+                                preSelect = 0;
+                            } else {
+                                classType = "left-column";
+                            }
+
+                            var html = '<li class="search-result">' +
+                                '<div class="'+classType+'" onClick="selectElement(' + element.id + ', \''+type+'\');"' +
+                                'data-type = "' + type + '" data-id="' + element.id + '">';
+                            if (element.url != '') {
+                                html += '<span style="background:url(' + element.url + ') no-repeat;" class="i-icon" ></span>'
+                            }
+                            html += '<div class="cont"><span class="name" >' + element.name + '</span>';
+                            html += '</div></div>';
+                            html += '</li>';
+                            sr.append(html);
+                        })
+                    }
+                })
+            } else {
+                var par = field.parent();
+                var sr = par.find('.search-results');
+                sr.html('');
+            }
+        }
+
+        function selectElement(id, type) {
+            console.log(id, type);
+            var arraySelected = document.getElementsByClassName("left-column-selected");
+            var arrayNormal = document.getElementsByClassName("left-column");
+
+            for(var i = (arraySelected.length - 1); i >= 0; i--) {
+                arraySelected[i].className = "left-column";
+            }
+
+            for(var n = (arrayNormal.length - 1); n >= 0; n--) {
+                if ($(arrayNormal[n]).attr("data-id") == id) {
+                    arrayNormal[n].className = "left-column-selected";
+                }
+            }
+        }
+
+        function submit(forceNot) {
+            var gym = -1;
+            var id = <?=$id?>;
+
+            var arraySelected = document.getElementsByClassName("left-column-selected");
+            for(var i = (arraySelected.length - 1); i >= 0; i--) {
+                if ($(arraySelected[i]).attr("data-type") == "gym") {
+                    gym = $(arraySelected[i]).attr("data-id")
+                }
+            }
+
+            if (forceNot) {
+                gym = -2
+            }
+
+            if (!forceNot && gym == -1) {
+                alert("Gym required!")
+            } else if (id == null) {
+                alert("Error! Please try again later!")
+            } else {
+                $.post( "submit/gymimage/"+id+"/"+gym )
+                    .done(function( data ) {
+                        <?php
+                            if ($showSkip) {
+                                echo 'window.location.href = "solvegyms"';
+                            } else {
+                                echo 'window.location.href = "checkgyms"';
+                            }
+                        ?>
+                    });
+            }
+        }
+    </script>
 	<?php
 }
 ?>
-
-<script>
-
-    var preSelect = <?=$preSelect?>;
-
-    $(document).ready(function() {
-        $("#search").bind('input', function () {
-            searchAjax($("#search"), "gym");
-        });
-        $("#submit").click(function() {
-            submit(false);
-        });
-	    $("#not").click(function() {
-		    submit(true)
-	    });
-        if (preSelect != 0) {
-	        searchAjax($("#search"), "gym");
-        }
-    });
-
-
-    var indexNow = 0;
-
-    function searchAjax(field, type) {
-        var term = field.val();
-        indexNow = indexNow + 1;
-        var index = indexNow;
-        if (term != '') {
-            $.ajax({
-                url: '../searchgym/'+term,
-                type: 'POST',
-                timeout: 300000,
-                dataType: 'json',
-                cache: false
-            }).done(function (data) {
-                if (data && index == indexNow) {
-                    var par = field.parent();
-                    var sr = par.find('.search-results');
-                    sr.html('');
-                    data.forEach(function (element) {
-                    	var classType;
-                    	if (preSelect != 0 && preSelect == element.id) {
-		                    classType = "left-column-selected";
-		                    preSelect = 0;
-                        } else {
-		                    classType = "left-column";
-	                    }
-
-                        var html = '<li class="search-result">' +
-                            '<div class="'+classType+'" onClick="selectElement(' + element.id + ', \''+type+'\');"' +
-                            'data-type = "' + type + '" data-id="' + element.id + '">';
-                        if (element.url != '') {
-                            html += '<span style="background:url(' + element.url + ') no-repeat;" class="i-icon" ></span>'
-                        }
-                        html += '<div class="cont"><span class="name" >' + element.name + '</span>';
-                        html += '</div></div>';
-                        html += '</li>';
-                        sr.append(html);
-                    })
-                }
-            })
-        } else {
-            var par = field.parent();
-            var sr = par.find('.search-results');
-            sr.html('');
-        }
-    }
-
-    function selectElement(id, type) {
-    	console.log(id, type);
-        var arraySelected = document.getElementsByClassName("left-column-selected");
-        var arrayNormal = document.getElementsByClassName("left-column");
-
-        for(var i = (arraySelected.length - 1); i >= 0; i--) {
-            arraySelected[i].className = "left-column";
-        }
-
-        for(var n = (arrayNormal.length - 1); n >= 0; n--) {
-            if ($(arrayNormal[n]).attr("data-id") == id) {
-                arrayNormal[n].className = "left-column-selected";
-            }
-        }
-    }
-
-    function submit(forceNot) {
-        var gym = -1;
-        var id = <?=$id?>;
-
-        var arraySelected = document.getElementsByClassName("left-column-selected");
-        for(var i = (arraySelected.length - 1); i >= 0; i--) {
-            if ($(arraySelected[i]).attr("data-type") == "gym") {
-                gym = $(arraySelected[i]).attr("data-id")
-            }
-        }
-
-        if (forceNot) {
-	        gym = -2
-        }
-
-        if (!forceNot && gym == -1) {
-            alert("Gym required!")
-        } else if (id == null) {
-            alert("Error! Please try again later!")
-        } else {
-            $.post( "submit/gymimage/"+id+"/"+gym )
-                .done(function( data ) {
-                    <?php
-                        if ($showSkip) {
-	                        echo 'window.location.href = "solvegyms"';
-                        } else {
-                            echo 'window.location.href = "checkgyms"';
-                        }
-                    ?>
-                });
-        }
-    }
-</script>

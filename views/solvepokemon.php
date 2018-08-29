@@ -159,160 +159,160 @@ if ($isEmpty) {
 } else {
 ?>
 
-<br>
-<div style="width:90%; margin-left:calc(5%);">
-	<div class="row">
-		<div class="col-md-2">
-			<div class="text-center">
-				<h5>Screenshot</h5>
-				<img border="5" src="<?=$url?>" height="300">
-				<br><br>
-				<input type="submit" id="not" class="btn btn-danger" value="Not a Pokemon">
-				<br>
-				<?php
-				if ($showSkip) {
-					?>
-					<br>
-					<a href="solvepokemon" role="button" class="btn btn-primary">Skip</a>
-					<?php
-				}
-				?>
-			</div><br>
-		</div>
+    <br>
+    <div style="width:90%; margin-left:calc(5%);">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="text-center">
+                    <h5>Screenshot</h5>
+                    <img border="5" src="<?=$url?>" height="300">
+                    <br><br>
+                    <input type="submit" id="not" class="btn btn-danger" value="Not a Pokemon">
+                    <br>
+                    <?php
+                    if ($showSkip) {
+                        ?>
+                        <br>
+                        <a href="solvepokemon" role="button" class="btn btn-primary">Skip</a>
+                        <?php
+                    }
+                    ?>
+                </div><br>
+            </div>
 
-		<div class="col-md-8">
-			<div class="text-center">
-				<h5>Pokemon</h5>
-				<input class="form-control" type="search" id="search" name="pokemon-search" data-type="gym" value="<?=$searchPrefill?>">
-				<ul id="pokemon-search-results" class="search-results gym-results"></ul>
-			</div><br>
-		</div>
+            <div class="col-md-8">
+                <div class="text-center">
+                    <h5>Pokemon</h5>
+                    <input class="form-control" type="search" id="search" name="pokemon-search" data-type="gym" value="<?=$searchPrefill?>">
+                    <ul id="pokemon-search-results" class="search-results gym-results"></ul>
+                </div><br>
+            </div>
 
-		<div class="col-md-2">
-			<div class="text-center">
-				<br>
-				<input type="submit" id="submit" class="btn btn-success" value="Submit Pokemon Image">
-			</div><br>
-		</div>
-	</div>
-	<?php
-	}
-	?>
+            <div class="col-md-2">
+                <div class="text-center">
+                    <br>
+                    <input type="submit" id="submit" class="btn btn-success" value="Submit Pokemon Image">
+                </div><br>
+            </div>
+        </div>
+    </div>
+    <script>
 
-	<script>
+        var preSelect = '<?=$preSelect?>';
 
-		var preSelect = '<?=$preSelect?>';
-
-		$(document).ready(function() {
-			$("#search").bind('input', function () {
-				searchAjax($("#search"), "pokemon");
-			});
-			$("#submit").click(function() {
-				submit(false);
-			});
-			$("#not").click(function() {
-				submit(true)
-			});
-			if (preSelect != 0) {
-				searchAjax($("#search"), "pokemon");
-			}
-		});
+        $(document).ready(function() {
+            $("#search").bind('input', function () {
+                searchAjax($("#search"), "pokemon");
+            });
+            $("#submit").click(function() {
+                submit(false);
+            });
+            $("#not").click(function() {
+                submit(true)
+            });
+            if (preSelect != 0) {
+                searchAjax($("#search"), "pokemon");
+            }
+        });
 
 
-		var indexNow = 0;
+        var indexNow = 0;
 
-		function searchAjax(field, type) {
-			var term = field.val();
-			indexNow = indexNow + 1;
-			var index = indexNow;
-			if (term != '') {
-				$.ajax({
-					url: '../searchpokemon/'+term,
-					type: 'POST',
-					timeout: 300000,
-					dataType: 'json',
-					cache: false
-				}).done(function (data) {
-					if (data && index == indexNow) {
-						var par = field.parent();
-						var sr = par.find('.search-results');
-						sr.html('');
-						data.forEach(function (element) {
-							var classType;
-							if (preSelect != 0 && preSelect == element.id) {
-								classType = "left-column-selected";
-								preSelect = 0;
-							} else {
-								classType = "left-column";
-							}
+        function searchAjax(field, type) {
+            var term = field.val();
+            indexNow = indexNow + 1;
+            var index = indexNow;
+            if (term != '') {
+                $.ajax({
+                    url: '../searchpokemon/'+term,
+                    type: 'POST',
+                    timeout: 300000,
+                    dataType: 'json',
+                    cache: false
+                }).done(function (data) {
+                    if (data && index == indexNow) {
+                        var par = field.parent();
+                        var sr = par.find('.search-results');
+                        sr.html('');
+                        data.forEach(function (element) {
+                            var classType;
+                            if (preSelect != 0 && preSelect == element.id) {
+                                classType = "left-column-selected";
+                                preSelect = 0;
+                            } else {
+                                classType = "left-column";
+                            }
 
-							var html = '<li class="search-result">' +
-								'<div class="'+classType+'" onClick="selectElement(\'' + element.id + '\', \''+type+'\');"' +
-								'data-type = "' + type + '" data-id="' + element.id + '">';
-							if (element.url != '') {
-								html += '<span style="background:url(' + element.url + ') no-repeat;" class="i-icon" ></span>'
-							}
-							html += '<div class="cont"><span class="name" >' + element.name + '</span>';
-							html += '</div></div>';
-							html += '</li>';
-							sr.append(html);
-						})
-					}
-				})
-			} else {
-				var par = field.parent();
-				var sr = par.find('.search-results');
-				sr.html('');
-			}
-		}
+                            var html = '<li class="search-result">' +
+                                '<div class="'+classType+'" onClick="selectElement(\'' + element.id + '\', \''+type+'\');"' +
+                                'data-type = "' + type + '" data-id="' + element.id + '">';
+                            if (element.url != '') {
+                                html += '<span style="background:url(' + element.url + ') no-repeat;" class="i-icon" ></span>'
+                            }
+                            html += '<div class="cont"><span class="name" >' + element.name + '</span>';
+                            html += '</div></div>';
+                            html += '</li>';
+                            sr.append(html);
+                        })
+                    }
+                })
+            } else {
+                var par = field.parent();
+                var sr = par.find('.search-results');
+                sr.html('');
+            }
+        }
 
-		function selectElement(id, type) {
-			console.log(id, type);
-			var arraySelected = document.getElementsByClassName("left-column-selected");
-			var arrayNormal = document.getElementsByClassName("left-column");
+        function selectElement(id, type) {
+            console.log(id, type);
+            var arraySelected = document.getElementsByClassName("left-column-selected");
+            var arrayNormal = document.getElementsByClassName("left-column");
 
-			for(var i = (arraySelected.length - 1); i >= 0; i--) {
-				arraySelected[i].className = "left-column";
-			}
+            for(var i = (arraySelected.length - 1); i >= 0; i--) {
+                arraySelected[i].className = "left-column";
+            }
 
-			for(var n = (arrayNormal.length - 1); n >= 0; n--) {
-				if ($(arrayNormal[n]).attr("data-id") == id) {
-					arrayNormal[n].className = "left-column-selected";
-				}
-			}
-		}
+            for(var n = (arrayNormal.length - 1); n >= 0; n--) {
+                if ($(arrayNormal[n]).attr("data-id") == id) {
+                    arrayNormal[n].className = "left-column-selected";
+                }
+            }
+        }
 
-		function submit(forceNot) {
-			var pokemon = 0;
-			var id = <?=$id?>;
+        function submit(forceNot) {
+            var pokemon = 0;
+            var id = <?=$id?>;
 
-			var arraySelected = document.getElementsByClassName("left-column-selected");
-			for(var i = (arraySelected.length - 1); i >= 0; i--) {
-				if ($(arraySelected[i]).attr("data-type") == "pokemon") {
-					pokemon = $(arraySelected[i]).attr("data-id")
-				}
-			}
+            var arraySelected = document.getElementsByClassName("left-column-selected");
+            for(var i = (arraySelected.length - 1); i >= 0; i--) {
+                if ($(arraySelected[i]).attr("data-type") == "pokemon") {
+                    pokemon = $(arraySelected[i]).attr("data-id")
+                }
+            }
 
-			if (forceNot) {
-				pokemon = "-2_0"
-			}
+            if (forceNot) {
+                pokemon = "-2_0"
+            }
 
-			if (!forceNot && pokemon == 0) {
-				alert("Pokemon required!")
-			} else if (id == null) {
-				alert("Error! Please try again later!")
-			} else {
+            if (!forceNot && pokemon == 0) {
+                alert("Pokemon required!")
+            } else if (id == null) {
+                alert("Error! Please try again later!")
+            } else {
                 pokemon = pokemon.replace('_', '/');
-				$.post( "submit/pokemonimage/"+id+"/"+pokemon )
-					.done(function( data ) {
-						<?php
-						if ($showSkip) {
-							echo 'window.location.href = "solvepokemon"';
-						} else {
-							echo 'window.location.href = "checkpokemon"';
-						}
-						?>
-					});
-			}
-		}
-	</script>
+                $.post( "submit/pokemonimage/"+id+"/"+pokemon )
+                    .done(function( data ) {
+                        <?php
+                        if ($showSkip) {
+                            echo 'window.location.href = "solvepokemon"';
+                        } else {
+                            echo 'window.location.href = "checkpokemon"';
+                        }
+                        ?>
+                    });
+            }
+        }
+    </script>
+    <?php
+}
+?>
