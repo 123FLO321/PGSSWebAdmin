@@ -1,3 +1,39 @@
 # PGSSWebAdmin
 
-PGSSWebAdmin is a Web Admin tool for [PGSS](http://github.com/mizu-github/PGSS) that alaws submitting and monitoring of Pokemon- and Gym-Images, monitoring of Devices and viewing of Logs.
+PGSSWebAdmin is a Web Admin tool for [PGSS](http://github.com/mizu-github/PGSS) that allows submitting and monitoring of Pokemon- and Gym-Images, monitoring of Devices and viewing of Logs.
+
+Run PGSSWebAdmin on the same server where the raidnearby processes are running at. (+ crop if you want the Devices feature to work proberly) 
+
+
+## Getting Started
+
+### MacOS
+
+Apache and PHP are preinstalled on MacOS
+
+- Go Into the Apache Directory
+ ```cd /etc/apache2/```
+- Copy the defailt config file (skip if there is a httpd.conf already)
+```cp httpd.conf httpd.conf.sierra```
+- Edit the config file
+```nano httpd.conf```
+  - Uncomment `LoadModule phpx_module ...`
+  - Uncomment `LoadModule rewrite_module ...`
+- Go into the WebRoot Directory
+```cd /Library/WebServer/Documents```
+- Delete every file in there if they are not needed any more 
+``'rm -r /Library/WebServer/Documents```
+- Clone the repository
+```git clone https://github.com/123FLO321/PGSSWebAdmin .```
+- Copy the example config
+```cp config.example.php config.php```
+- Edit config
+```nano config.php```
+- (Re)Start apache
+```sudo apachectl restart```
+- PGSSWebAdmin should now be runnin on that machine
+(From same machine: http://localhost, From other machine: http://machine-ip)
+
+### Linux
+
+TODO
