@@ -15,7 +15,7 @@ $sth = $db->pdo->prepare($query);
 $sth->bindParam(':id', $id, PDO::PARAM_INT);
 
 if ($sth->execute()) {
-	header('Location: /checkgyms');
+	header('Location: ../../checkgyms');
 } else {
 	echo "Failed to delete GymImage.";
 }
