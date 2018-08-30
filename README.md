@@ -20,6 +20,8 @@ Apache and PHP are preinstalled on MacOS
   - Uncomment `LoadModule phpx_module ...`
   - Uncomment `LoadModule rewrite_module ...`
   - find `AllowOverride None` in `<Directory "/Library/WebServer/Documents">...</Directory>` and change it to: `AllowOverride All`
+  - find `Require all denied` in `<Directory "/Library/WebServer/Documents">...</Directory>` and change it to: `Require all granted`
+
 - Go into the WebRoot Directory
 ```cd /Library/WebServer/Documents```
 - Delete every file in there if they are not needed any more 
