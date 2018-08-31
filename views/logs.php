@@ -8,51 +8,32 @@
 <script>
 	$(document).ready(function() {
 		$('#table').DataTable( {
-			"paging":   false,
+			"ajax": 'get/logs',
+			"paging":   true,
+			"lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
 			"info":     false,
 			"order": [[ 0, "desc" ]],
 			"search.caseInsensitive": true,
 			"columnDefs": [ {
 				"targets": 4,
 				"orderable": false
-			} ]
+			} ],
+			"drawCallback": function( settings ) {
+				$("#table img:visible").unveil();
+			}
 		});
 	} );
-</script>
 
-
-
-<?php
-
-$data = array();
-
-$files = array_diff(scandir(PGSS_ROOT_DIR.'/logs'), array('.', '..'));
-foreach ($files as $file) {
-	if ((substr($file, - 4) !== '.log')) {
-		continue;
-	} else {
-		$splited = explode('_', $file);
-
-		if ($splited[2] === 'raidscan.log') {
-			$type = 'raidscan';
-			$device = '';
-		} else if ($splited[3] === 'xcodebuild.log') {
-			$type = 'xcodebuild';
-			$device = $splited[2];
-		} else {
-			continue;
-		}
-
-		$time = $splited[0].' '.str_replace('-', ':', $splited[1]);
-
-		$size = number_format(filesize(PGSS_ROOT_DIR.'/logs/'.$file) / 1048576, 2);
-
-		$data[] = array("time"=>$time, "type"=>$type, "device"=>$device, "size"=> $size, "filename"=>$file);
+	function deleteLog(file, element) {
+		$.post( "delete/log/"+file );
+		var table = $('#table').DataTable();
+		table
+			.row( $(element).parents('tr') )
+			.remove()
+			.draw();
 	}
-}
 
-
-?>
+</script>
 
 <div style="width:90%; margin-left:calc(5%);">
 	<br>
@@ -67,23 +48,6 @@ foreach ($files as $file) {
 			</tr>
 		</thead>
 		<tbody>
-			<?php
-			foreach ($data as $row) {
-				echo
-					'<tr>'.
-					'     <td>'.$row["time"].'</td>'.
-					'     <td>'.$row["type"].'</td>'.
-					'     <td>'.$row["device"].'</td>'.
-					'     <td>'.$row["size"].' MB</td>'.
-					'     <td>'.
-					'           <a href="log/'.$row["filename"].'" role="button" class="btn btn-success">View</a>'.
-					'           <a href="download/log/'.$row["filename"].'" role="button" class="btn btn-primary">Download</a>'.
-					'           <a href="delete/log/'.$row["filename"].'" role="button" class="btn btn-danger">Delete</a>'.
-					'	  </td>'.
-					'</tr>';
-
-			}
-			?>
 		</tbody>
 	</table>
 	<br>

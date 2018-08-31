@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="static/css/datatables.min.css"/>
 
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.unveil.js"></script>
     <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="static/js/datatables.min.js"></script>
 

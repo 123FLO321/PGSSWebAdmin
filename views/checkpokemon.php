@@ -8,66 +8,31 @@
 <script>
 	$(document).ready(function() {
 		$('#table').DataTable( {
-			"paging":   false,
-			"info":     false,
+			"ajax": 'get/pokmeonimages',
+			"paging":   true,
+			"lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
+            "info":     false,
 			"order": [[ 2, "asc" ]],
 			"search.caseInsensitive": true,
 			"columnDefs": [ {
 				"targets": [4,5,6],
 				"orderable": false
-			}]
+			}],
+			"drawCallback": function( settings ) {
+				$("#table img:visible").unveil();
+			}
 		});
 	} );
+
+	function deletePokemonImage(id, element) {
+		$.post( "delete/pokemonimage/"+id );
+		var table = $('#table').DataTable();
+		table
+			.row( $(element).parents('tr') )
+			.remove()
+			.draw();
+	}
 </script>
-
-<?php
-include_once "lib/db.php";
-include_once "lib/functions.php";
-
-$data = array();
-
-$query = "
-	SELECT id, pokemon_id, form
-	FROM pokemon_images
-";
-$results = $db->query($query)->fetchAll(\PDO::FETCH_ASSOC);
-
-foreach ($results as $result) {
-	$id = $result['id'];
-	$pokemonId = $result['pokemon_id'];
-	$form = $result['form'];
-	if (is_null($form)) {
-		$formString = '?';
-	} else {
-		$formString = sprintf('%02d',$form);;
-	}
-	if ($pokemonId == 0) {
-		$name = 'Unknown Pokemon';
-		$pokemonId = '';
-		$formString ='';
-		$url = '';
-	} else if ($pokemonId == -2 ) {
-		$name = 'No Pokemon';
-		$pokemonId = '';
-		$formString ='';
-		$url = '';
-	} else {
-		$pokemonId = sprintf('%03d',$pokemonId);
-		$name = getPokemonName($pokemonId, $form);
-		$url = getPokemonURL($pokemonId, $form);
-	}
-
-	$data[] = array(
-		'id'=>$id,
-		'name'=>$name,
-		'pokemon_id'=>$pokemonId,
-		'form'=>$formString,
-		'pokemon_url'=>$url,
-		'screenshot_url'=>'image/PokemonImage_'.$id.'.png'
-	);
-}
-
-?>
 
 <div style="width:90%; margin-left:calc(5%);">
 	<br>
@@ -84,35 +49,6 @@ foreach ($results as $result) {
 		</tr>
 		</thead>
 		<tbody>
-		<?php
-		foreach ($data as $row) {
-
-			if ($row["name"] === "Unknown Pokemon") {
-				$editButton = '<a href="solvepokemon/'.$row["id"].'" role="button" class="btn btn-success">Match</a>';
-			} else {
-				$editButton = '<a href="solvepokemon/'.$row["id"].'" role="button" class="btn btn-primary">Edit</a>';
-			}
-
-			echo
-				'<tr>'.
-				'     <td>'.$row["id"].'</td>'.
-				'     <td>'.$row["name"].'</td>'.
-				'     <td>'.$row["pokemon_id"].'</td>'.
-				'     <td>'.$row["form"].'</td>'.
-				'     <td>'.
-				'           <img src="'.$row["screenshot_url"].'" style="max-height:250px">'.
-				'	  </td>'.
-				'     <td>'.
-				'           <img src="'.$row["pokemon_url"].'" style="max-height:250px; max-width:200px">'.
-				'	  </td>'.
-				'	  <td>'.
-				'          '.$editButton.
-				'           <a href="delete/pokemonimage/'.$row["id"].'" role="button" class="btn btn-danger">Delete</a>'.
-				'	  </td>'.
-				'</tr>';
-
-		}
-		?>
 		</tbody>
 	</table>
 	<br>

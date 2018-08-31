@@ -2,7 +2,6 @@
 
 include_once '../config.php';
 include_once '../lib/db.php';
-include_once '../lib/getHost.php';
 
 $id = $_GET['id'];
 
@@ -15,8 +14,7 @@ $query = "
 $sth = $db->pdo->prepare($query);
 $sth->bindParam(':id', $id, PDO::PARAM_INT);
 
-if ($sth->execute()) {
-	header('Location: '.HOST_URL.'checkpokemon');
-} else {
+if (!$sth->execute()) {
+	http_response_code(500);
 	echo "Failed to delete PokemonImages.";
 }

@@ -1,13 +1,11 @@
 <?php
 
 include_once "../config.php";
-include_once '../lib/getHost.php';
 
 $file = $_GET["file"];
 $fullFilename = PGSS_ROOT_DIR.'/logs/'.$file;
 
-if (unlink($fullFilename) === true) {
-	header('Location: '.HOST_URL.'logs');
-} else {
+if (!unlink($fullFilename) === true) {
+	http_response_code(500);
 	echo "Failed to delete file.";
 }

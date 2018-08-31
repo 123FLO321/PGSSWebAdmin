@@ -14,13 +14,21 @@ RewriteRule ^devices$		        index.php?page=devices		                    [QSA,
 RewriteRule ^logs$		            index.php?page=logs		                        [QSA,NC,L]
 RewriteRule ^log/(.+)$		        index.php?page=log&file=$1		                [QSA,NC,L]
 
+RewriteRule ^image/(.+)$                    actions/showImage.php?file=$1		                    [QSA,NC,L]
 
 RewriteRule ^download/log/(.+)$             actions/downloadLog.php?file=$1		                    [QSA,NC,L]
+
+RewriteRule ^get/logs$                      actions/getLogs.php           		                    [QSA,NC,L]
+RewriteRule ^get/gymimages$                 actions/getGymImages.php              		            [QSA,NC,L]
+RewriteRule ^get/pokmeonimages$             actions/getPokemonImages.php              		        [QSA,NC,L]
+RewriteRule ^get/devices$                   actions/getDevices.php                   		        [QSA,NC,L]
+
 RewriteRule ^delete/log/(.+)$               actions/deleteLog.php?file=$1		                    [QSA,NC,L]
 RewriteRule ^delete/gymimage/(.+)$          actions/deleteGymImage.php?id=$1		                [QSA,NC,L]
 RewriteRule ^delete/pokemonimage/(.+)$      actions/deletePokemonImage.php?id=$1		            [QSA,NC,L]
-RewriteRule ^image/(.+)$                    actions/showImage.php?file=$1		                    [QSA,NC,L]
+
 RewriteRule ^searchgym/(.+)$                actions/searchGym.php?term=$1		                    [QSA,NC,L]
 RewriteRule ^searchpokemon/(.+)$            actions/searchPokemon.php?term=$1		                [QSA,NC,L]
+
 RewriteRule ^submit/gymimage/(.+)/(.+)$     actions/submitGymImage.php?id=$1&fort_id=$2		        [QSA,NC,L]
 RewriteRule ^submit/pokemonimage/(.+)/(.+)/(.+)$  actions/submitPokemonImage.php?id=$1&pokemon_id=$2&form=$3  [QSA,NC,L]
