@@ -60,6 +60,8 @@ cp config.example.php config.php
 cp example.nginx.conf /etc/nginx/sites-available/pgsswebadmin.conf
 ln -s /etc/nginx/sites-available/pgsswebadmin.conf /etc/nginx/sites-enabled/pgsswebadmin.conf
 ```
+- Edit your pgsswebadmin.conf to match root dir of PGSSWebAdmin
+```root /PATH/TO/PGSSWebAdmin;```
 - Check nginx syntax with ```nginx -t```
 - If it returns ```nginx: the configuration file /etc/nginx/nginx.conf syntax is ok```
 - Reload nginx to activate the website ```nginx -s reload```
