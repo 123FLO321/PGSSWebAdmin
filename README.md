@@ -39,9 +39,10 @@ Apache and PHP are preinstalled on MacOS
 
 ### Linux
 
-Nginx and PHP7.0-FPM preinstalled on Linux
+- Nginx and PHP7.0-FPM preinstalled on Linux
+
 ########
-Example for debian / ubuntu:
+- Example for debian / ubuntu:
 ```
 sudo apt update 
 sudo apt upgrade
