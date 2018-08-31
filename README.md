@@ -40,13 +40,14 @@ Apache and PHP are preinstalled on MacOS
 ### Linux
 
 Nginx and PHP7.0-FPM preinstalled on Linux
-
+########
 Example for debian / ubuntu:
 ```
 sudo apt update 
 sudo apt upgrade
 sudo apt install php7.0 php7.0-fpm php7.0-mysql mysql-server
 ```
+########
 ```
 cd /opt
 git clone https://github.com/123FLO321/PGSSWebAdmin.git
