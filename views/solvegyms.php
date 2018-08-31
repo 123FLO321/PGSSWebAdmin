@@ -81,16 +81,30 @@
 
 <?php
 include_once "lib/db.php";
+include_once 'lib/functions.php';
 
+$fileIdsString = '';
+$files = array_diff(scandir(PGSS_ROOT_DIR.'/web_img'), array('.', '..'));
+foreach ($files as $file) {
+	if (str_contains($file, "GymImage_")) {
+	    $fileId = str_replace('GymImage_', '', str_replace('.png', '', $file));
+	    if ($fileIdsString === '') {
+		    $fileIdsString .= $fileId;
+        } else {
+		    $fileIdsString .= ', '. $fileId;
+	    }
+	}
+}
 
 if (is_null($id)) {
     $showSkip = true;
     $idQuery = "
-      SELECT fi.id
-      FROM gym_images fi
-      JOIN forts f ON f.id = fi.fort_id
-      WHERE f.name = 'UNKNOWN FORT'
+      SELECT gi.id
+      FROM gym_images gi
+      JOIN forts f ON f.id = gi.fort_id
+      WHERE f.name = 'UNKNOWN FORT' AND gi.id IN (". $fileIdsString .")
     ";
+
 
 	$idResults = $db->query($idQuery)->fetchAll(\PDO::FETCH_ASSOC);
 

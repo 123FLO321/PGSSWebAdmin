@@ -83,13 +83,25 @@
 include_once "lib/db.php";
 include_once "lib/functions.php";
 
+$fileIdsString = '';
+$files = array_diff(scandir(PGSS_ROOT_DIR.'/web_img'), array('.', '..'));
+foreach ($files as $file) {
+	if (str_contains($file, "PokemonImage_")) {
+		$fileId = str_replace('PokemonImage_', '', str_replace('.png', '', $file));
+		if ($fileIdsString === '') {
+			$fileIdsString .= $fileId;
+		} else {
+			$fileIdsString .= ', '. $fileId;
+		}
+	}
+}
 
 if (is_null($id)) {
 	$showSkip = true;
 	$idQuery = "
       	SELECT id
 		FROM pokemon_images
-		WHERE pokemon_id = 0
+		WHERE pokemon_id = 0 AND id IN (".$fileIdsString.")
     ";
 
 	$idResults = $db->query($idQuery)->fetchAll(\PDO::FETCH_ASSOC);
