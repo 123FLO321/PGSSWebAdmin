@@ -20,7 +20,7 @@ RewriteRule ^download/log/(.+)$             actions/downloadLog.php?file=$1		   
 
 RewriteRule ^get/logs$                      actions/getLogs.php           		                    [QSA,NC,L]
 RewriteRule ^get/gymimages$                 actions/getGymImages.php              		            [QSA,NC,L]
-RewriteRule ^get/pokmeonimages$             actions/getPokemonImages.php              		        [QSA,NC,L]
+RewriteRule ^get/pokemonimages$             actions/getPokemonImages.php              		        [QSA,NC,L]
 RewriteRule ^get/devices$                   actions/getDevices.php                   		        [QSA,NC,L]
 
 RewriteRule ^delete/log/(.+)$               actions/deleteLog.php?file=$1		                    [QSA,NC,L]

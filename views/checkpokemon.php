@@ -8,7 +8,7 @@
 <script>
 	$(document).ready(function() {
 		$('#table').DataTable( {
-			"ajax": 'get/pokmeonimages',
+			"ajax": 'get/pokemonimages',
 			"paging":   true,
 			"lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
             "info":     false,
