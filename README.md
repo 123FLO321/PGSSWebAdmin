@@ -27,7 +27,7 @@ Apache and PHP are preinstalled on MacOS
 - Delete every file in there if they are not needed any more 
 ```rm -r /Library/WebServer/Documents/*```
 - Clone the repository
-```git clone https://github.com/123FLO321/PGSSWebAdmin .```
+```git clone https://github.com/123FLO321/PGSSWebAdmin /Library/WebServer/Documents/```
 - Copy the example config
 ```cp config.example.php config.php```
 - Edit config
@@ -37,6 +37,8 @@ Apache and PHP are preinstalled on MacOS
 - PGSSWebAdmin should now be runnin on that machine
 (From same machine: http://localhost, From other machine: http://machine-ip)
 
+If you get permission errors go to the RDRM folder in Finder and open the info window for PGSS (rightclick -> Information). 
+Now under Share & Accesrights change everyone to Read & Write.
 ### Linux
 
 TODO
