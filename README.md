@@ -41,4 +41,29 @@ If you get permission errors go to the RDRM folder in Finder and open the info w
 Now under Share & Accesrights change everyone to Read & Write.
 ### Linux
 
-TODO
+- Install NGINX and PHP7 debian / ubuntu:
+```
+sudo apt update 
+sudo apt upgrade
+sudo apt install php7.0 php7.0-fpm php7.0-mysql mysql-server
+```
+
+- Clone the project
+```
+cd /opt
+git clone https://github.com/123FLO321/PGSSWebAdmin.git
+cp config.example.php config.php
+```
+- Edit your config.php to match your pgss install dir and database with your favourite editer.
+```vi config.php```
+```
+cp example.nginx.conf /etc/nginx/sites-available/pgsswebadmin.conf
+ln -s /etc/nginx/sites-available/pgsswebadmin.conf /etc/nginx/sites-enabled/pgsswebadmin.conf
+```
+- Edit your pgsswebadmin.conf to match root dir of PGSSWebAdmin
+```root /PATH/TO/PGSSWebAdmin;```
+- Check nginx syntax with ```nginx -t```
+- If it returns ```nginx: the configuration file /etc/nginx/nginx.conf syntax is ok```
+- Reload nginx to activate the website ```nginx -s reload```
+- PGSSWebAdmin should now be runnin on that machine
+(From same machine: http://localhost, From other machine: http://machine-ip)
