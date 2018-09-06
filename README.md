@@ -39,16 +39,14 @@ Apache and PHP are preinstalled on MacOS
 
 ### Linux
 
-- Nginx and PHP7.0-FPM preinstalled on Linux
-
-########
-- Example for debian / ubuntu:
+- Install NGINX and PHP7 debian / ubuntu:
 ```
 sudo apt update 
 sudo apt upgrade
 sudo apt install php7.0 php7.0-fpm php7.0-mysql mysql-server
 ```
-########
+
+- Clone the project
 ```
 cd /opt
 git clone https://github.com/123FLO321/PGSSWebAdmin.git
@@ -65,5 +63,5 @@ ln -s /etc/nginx/sites-available/pgsswebadmin.conf /etc/nginx/sites-enabled/pgss
 - Check nginx syntax with ```nginx -t```
 - If it returns ```nginx: the configuration file /etc/nginx/nginx.conf syntax is ok```
 - Reload nginx to activate the website ```nginx -s reload```
-
-Enjoy http://IPADDRESS of your server
+- PGSSWebAdmin should now be runnin on that machine
+(From same machine: http://localhost, From other machine: http://machine-ip)
