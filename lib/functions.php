@@ -2,7 +2,7 @@
 
 function getPokemonURL($pokemonId, $form) {
 	if (is_null($form)) {
-		if ($pokemonId == 201 || $pokemonId == 351 || $pokemonId == 386 || $pokemonId == 327) {
+		if ($pokemonId == 201 || $pokemonId == 351 || $pokemonId == 386 || $pokemonId == 327 || $pokemonId == 421 || $pokemonId == 487 || $pokemonId == 492) {
 			$formReal = 11;
 		} else {
 			$formReal = 0;

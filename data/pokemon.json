@@ -473,7 +473,7 @@
   "417_00": "Pachirisu",
   "419_00": "Flotzel",
   "420_00": "Cherubi",
-  "421_00": "Cherrim",
+  "421_11": "Overcast Cherrim",
   "424_00": "Ambipom",
   "425_00": "Drifloon",
   "426_00": "Drifblim",
@@ -525,9 +525,10 @@
   "484_00": "Palkia",
   "485_00": "Heatran",
   "486_00": "Regigigas",
-  "487_00": "Giratina",
+  "487_11": "Altered Giratina",
+  "487_12": "Origin Giratina",
   "488_00": "Cresselia",
   "489_00": "Phione",
   "491_00": "Darkrai",
-  "492_00": "Shaymin"
+  "492_11": "Land Shaymin"
 }
